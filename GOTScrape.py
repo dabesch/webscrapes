@@ -4,6 +4,11 @@ import requests
 
 
 def containerExtract(container):
+    """
+    Scrape for the episode summary
+    :param container:
+    :return: returns a dictionary with the episode summary
+    """
     epString = container.a.div.div.text.split(', ')
 
     title = container.find('strong').text
@@ -25,6 +30,11 @@ def containerExtract(container):
 
 
 def seasonDF(season):
+    """
+    Function for collating all data, each container is extracted.
+    :param season: Int for searching which season to extract data from
+    :return: a DataFrame of each season
+    """
     # Fetch page 
     urlString = 'https://www.imdb.com/title/tt0944947/episodes?season={}'.format(season)
     response = requests.get(urlString)
@@ -40,6 +50,14 @@ def seasonDF(season):
 
 
 def creditDF(link, season, episode):
+    """
+    Scrape for pulling together cast and crew details for each episode.
+    NOTE: Requires the link field of a product of seasonDF()
+    :param link: The link field from the seasonDF(), this is used in the URL string
+    :param season: Int for the season number which the link belongs
+    :param episode: Int for the episode number which the link belongs
+    :return: A DataFrame produced which has a list of all cast and crew and which department they belong to
+    """
     url = 'http://www.imdb.com' + link + 'fullcredits?ref_=tt_ov_wr/'
     response = requests.get(url)
     epSoup = BeautifulSoup(response.text, 'lxml')
