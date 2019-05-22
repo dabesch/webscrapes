@@ -46,6 +46,9 @@ def seasonDF(season):
     for ep in ep_containers:
         dictList.append(containerExtract(ep))
     df = pd.DataFrame(dictList)
+    df['airDate'] = pd.to_datetime(df['airDate'])
+    df['seID'] = df.apply(lambda x: '{}.{}'.format(x['season'], x['episode']), axis=1)
+
     return df
 
 
@@ -92,7 +95,7 @@ for s in range(1, 9):
     episodes.append(df)
 episodes = pd.concat(episodes)
 
-episodes = episodes[['season', 'episode', 'airDate', 'title', 'rating', 'votes', 'link']].reset_index(drop=True)
+episodes = episodes[['seID', 'season', 'episode', 'airDate', 'title', 'rating', 'votes', 'link']].reset_index(drop=True)
 episodes.to_csv('episodes.csv', index=False)
 print('CSV created')
 
