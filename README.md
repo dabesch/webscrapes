@@ -1,4 +1,4 @@
-# webscapes
+# webscrapes
 _A store of various scripts for experimenting in web scraping_
 
 
@@ -16,7 +16,7 @@ From this 2 .csv files should be produced:
 * `episode.csv` which contains episode summary data
 * `credits.csv` which contains a list of all crew and cast grouped by department
 
-#### yieldCurvesData
+#### yieldCurvesData.py
 _Scrapes US treasury website for publicly available data_
 
 Extracts the data and outputs to a pandas dataframe. These functions can then be imported into another workplace for 
