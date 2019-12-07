@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import os
 
 
 # Create the artist string to search
@@ -71,12 +72,12 @@ def albumDict(albums):
 
 # write to JSON for reading later
 def albumToJSON(dictionary, filename, append=True):
-    if append:
+    if append and os.path.exists(filename):
         with open(filename, 'r') as json_file:
             data = json.load(json_file)
             data.append(dictionary)
     else:
-        data = dictionary
+        data = [dictionary]
     with open(filename, 'w') as json_file:
         json.dump(data, json_file)
     print('JSON write complete')
@@ -104,5 +105,5 @@ def artistScrape(artist, jsonFile):
     """
     Runs the whole script with the artist name and the final filename
     """
-    albums = artistToSearch(artist)
+    albums = artistPage(artist)
     splitAlbums(albums, jsonFile)
