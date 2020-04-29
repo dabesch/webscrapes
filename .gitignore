@@ -3,3 +3,4 @@
 *.xml
 .ipynb*
 *.csv
+*.pyc
